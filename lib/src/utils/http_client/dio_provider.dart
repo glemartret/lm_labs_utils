@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:lm_labs_app/src/utils/http_client/logger_interceptor.dart';
-import 'package:lm_labs_app/src/utils/http_client/network_interceptor.dart';
+import 'package:lm_labs_utils/src/utils/http_client/logger_interceptor.dart';
+import 'package:lm_labs_utils/src/utils/http_client/network_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';

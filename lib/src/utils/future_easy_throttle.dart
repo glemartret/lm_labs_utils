@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lm_labs_app/src/utils/extensions/completer_extension.dart';
+import 'package:lm_labs_utils/src/utils/extensions/completer_extension.dart';
 
 typedef FutureEasyThrottleCallback = Future<void> Function();
 

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lm_labs_app/src/utils/extensions/completer_extension.dart';
+import 'package:lm_labs_utils/src/utils/extensions/completer_extension.dart';
 
 /// A void callback, i.e. (){}, so we don't need to import e.g. `dart.ui`
 /// just for the VoidCallback type definition.
