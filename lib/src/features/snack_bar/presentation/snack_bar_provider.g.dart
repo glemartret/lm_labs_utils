@@ -6,19 +6,21 @@ part of 'snack_bar_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$snackBarHash() => r'a331b9e8fd4283f73503e8c5c854b87f44870cc8';
+String _$snackBarNotifierHash() => r'bf9152352188e3649da6c773f2df704f0a6f1ea4';
 
-/// See also [snackBar].
-@ProviderFor(snackBar)
-final snackBarProvider = AutoDisposeProvider<SnackBar?>.internal(
-  snackBar,
-  name: r'snackBarProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$snackBarHash,
+/// See also [SnackBarNotifier].
+@ProviderFor(SnackBarNotifier)
+final snackBarNotifierProvider =
+    AutoDisposeNotifierProvider<SnackBarNotifier, SnackBar?>.internal(
+  SnackBarNotifier.new,
+  name: r'snackBarNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$snackBarNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef SnackBarRef = AutoDisposeProviderRef<SnackBar?>;
+typedef _$SnackBarNotifier = AutoDisposeNotifier<SnackBar?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

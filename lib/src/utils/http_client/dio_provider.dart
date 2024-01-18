@@ -11,5 +11,6 @@ Dio dio(DioRef ref) {
   dio.interceptors
     ..add(LoggerInterceptor())
     ..add(NetworkInterceptor(dio));
+
   return dio;
 }

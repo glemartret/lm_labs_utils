@@ -7,13 +7,21 @@ class LLTappable extends HookWidget {
   final Widget child;
   final Future<void> Function()? onTap;
   final Duration duration;
+  final Widget Function(Widget) _builder;
 
   const LLTappable({
     required this.child,
     this.onTap,
     this.duration = const Duration(milliseconds: 500),
     super.key,
-  });
+  }) : _builder = LLTappable._constrainedBuilder;
+
+  const LLTappable.shrink({
+    required this.child,
+    this.onTap,
+    this.duration = const Duration(milliseconds: 500),
+    super.key,
+  }) : _builder = LLTappable._simpleBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class LLTappable extends HookWidget {
               );
               isProcessing.value = false;
             },
-      child: child,
+      child: _builder(child),
     );
   }
 
@@ -42,4 +50,20 @@ class LLTappable extends HookWidget {
       ..add(ObjectFlagProperty<Future<void> Function()?>.has('onTap', onTap))
       ..add(DiagnosticsProperty<Duration>('duration', duration));
   }
+
+  static Widget _constrainedBuilder(Widget child) => ConstrainedBox(
+        constraints: const BoxConstraints(
+          minWidth: 48,
+          minHeight: 48,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            child,
+          ],
+        ),
+      );
+
+  static Widget _simpleBuilder(Widget child) => child;
 }
