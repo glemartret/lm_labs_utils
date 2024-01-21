@@ -11,7 +11,7 @@ jobs:
       - uses: peiffer-innovations/actions-dart-version-autotag@v1
         with:
           token: ${{ secrets.TAG_TOKEN }}
-      - uses: actions/checkout@v41
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.TAG_TOKEN }}
       - name: Run latest-tag
