@@ -269,8 +269,8 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v0.0.3"
-      resolved-ref: "6aca871c0de7714ae4eab3158f1f3678d271376d"
+      ref: latest
+      resolved-ref: d311a0a5cfb28f29be245873be6a1c993f953e0d
       url: "git@github.com:glemartret/extreme_flutter_lints.git"
     source: git
     version: "0.0.3"
@@ -821,4 +821,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.2.0 <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.13.0"

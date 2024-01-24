@@ -30,7 +30,7 @@ dev_dependencies:
   extreme_flutter_lints:
     git:
       url: git@github.com:glemartret/extreme_flutter_lints.git
-      ref: v0.0.3
+      ref: latest
   flutter_test:
     sdk: flutter
   freezed: ^2.4.5
