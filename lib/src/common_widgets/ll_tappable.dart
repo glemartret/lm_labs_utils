@@ -16,7 +16,7 @@ class LLTappable extends HookWidget {
     super.key,
   }) : _builder = LLTappable._constrainedBuilder;
 
-  const LLTappable.shrink({
+  const LLTappable.expand({
     required this.child,
     this.onTap,
     this.duration = const Duration(milliseconds: 500),
@@ -56,13 +56,7 @@ class LLTappable extends HookWidget {
           minWidth: 48,
           minHeight: 48,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            child,
-          ],
-        ),
+        child: child,
       );
 
   static Widget _simpleBuilder(Widget child) => child;

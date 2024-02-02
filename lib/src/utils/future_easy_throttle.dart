@@ -49,6 +49,7 @@ class FutureEasyThrottle {
       _FutureEasyThrottleOperation(
         onExecute,
         Timer(duration, () {
+          _operations[tag]?.$2.tryComplete();
           _operations[tag]?.$1.timer.cancel();
           final removed = _operations.remove(tag);
 

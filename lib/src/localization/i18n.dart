@@ -17,8 +17,8 @@ extension LmLabsUtilsLocalization on String {
         'fr': 'Non',
       } +
       {
-        'en': '',
-        'fr': '',
+        'en': 'Retry',
+        'fr': 'Réessayer',
       } +
       {
         'en': '',
