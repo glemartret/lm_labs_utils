@@ -3,7 +3,7 @@ import 'package:i18n_extension/i18n_extension.dart';
 
 // Search Strings without .i18n '(?!\.i18n)[\n\w\d\s.]*?'(?!\.i18n)(?!\n\.i18n)
 extension LmLabsUtilsLocalization on String {
-  static final _t = Translations('en') +
+  static final _t = Translations.byText('en') +
       {
         'en': 'Refresh',
         'fr': 'Actualiser',

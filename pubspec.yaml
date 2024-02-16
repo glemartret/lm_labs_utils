@@ -4,7 +4,7 @@ description: "A new Flutter project."
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'
 
-version: 1.0.0+6
+version: 1.0.1
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -15,28 +15,28 @@ dependencies:
   easy_debounce: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.20.3
+  flutter_hooks: ^0.20.5
   flutter_localizations:
     sdk: flutter
   freezed_annotation: ^2.4.1
-  hooks_riverpod: ^2.4.9
-  i18n_extension: ^10.0.1
+  hooks_riverpod: ^2.4.10
+  i18n_extension: ^11.0.5
   json_annotation: ^4.8.1
-  riverpod_annotation: ^2.3.3
+  riverpod_annotation: ^2.3.4
 
 dev_dependencies:
-  build_runner: ^2.4.7
-  custom_lint: ^0.5.7
+  build_runner: ^2.4.8
+  custom_lint: ^0.6.0
   extreme_flutter_lints:
     git:
       url: git@github.com:glemartret/extreme_flutter_lints.git
       ref: latest
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.5
+  freezed: ^2.4.7
   json_serializable: ^6.7.1
-  riverpod_generator: ^2.3.9
-  riverpod_lint: ^2.3.7
+  riverpod_generator: ^2.3.11
+  riverpod_lint: ^2.3.9
 
 flutter:
   uses-material-design: true

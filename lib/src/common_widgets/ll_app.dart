@@ -5,10 +5,8 @@ import 'package:lm_labs_utils/localization.dart';
 
 class LLApp extends ConsumerWidget {
   final WidgetBuilder appBuilder;
-  final void Function(WidgetRef, FutureProvider<void>) onRetry; // () {
-  //   ref.invalidate(onboardingRepositoryProvider);
-  //   ref.invalidate(appStartupProvider);
-  // }
+  final FutureProvider<void> initAppProvider;
+  final void Function(WidgetRef, FutureProvider<void>) onRetry;
   final WidgetBuilder loadingBuilder;
   final Widget Function(
     BuildContext context,
@@ -16,8 +14,6 @@ class LLApp extends ConsumerWidget {
     StackTrace? stackTrace,
     VoidCallback onRetry,
   ) errorBuilder;
-
-  final FutureProvider<void> initAppProvider;
 
   const LLApp({
     required this.appBuilder,
