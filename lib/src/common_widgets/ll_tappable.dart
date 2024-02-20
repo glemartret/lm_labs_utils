@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -5,7 +7,7 @@ import 'package:lm_labs_utils/src/utils/future_easy_throttle.dart';
 
 class LLTappable extends HookWidget {
   final Widget child;
-  final Future<void> Function()? onTap;
+  final FutureOr<void> Function()? onTap;
   final Duration duration;
   final Widget Function(Widget) _builder;
 
@@ -27,19 +29,26 @@ class LLTappable extends HookWidget {
   Widget build(BuildContext context) {
     final isProcessing = useState(false);
 
-    return GestureDetector(
-      onTap: isProcessing.value
-          ? null
-          : () async {
-              isProcessing.value = true;
-              await FutureEasyThrottle.throttle(
-                key.toString(),
-                duration,
-                () async => onTap?.call(),
-              );
-              isProcessing.value = false;
-            },
-      child: _builder(child),
+    return MouseRegion(
+      cursor: isProcessing.value
+          ? SystemMouseCursors.wait
+          : (onTap != null)
+              ? SystemMouseCursors.click
+              : MouseCursor.defer,
+      child: GestureDetector(
+        onTap: isProcessing.value
+            ? null
+            : () async {
+                isProcessing.value = true;
+                await FutureEasyThrottle.throttle(
+                  key.toString(),
+                  duration,
+                  () async => onTap?.call(),
+                );
+                isProcessing.value = false;
+              },
+        child: _builder(child),
+      ),
     );
   }
 
@@ -47,7 +56,7 @@ class LLTappable extends HookWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(ObjectFlagProperty<Future<void> Function()?>.has('onTap', onTap))
+      ..add(ObjectFlagProperty<FutureOr<void> Function()?>.has('onTap', onTap))
       ..add(DiagnosticsProperty<Duration>('duration', duration));
   }
 
