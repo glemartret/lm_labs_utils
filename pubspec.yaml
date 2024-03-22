@@ -2,12 +2,12 @@ name: lm_labs_utils
 description: "A new Flutter project."
 
 # Prevent accidental publishing to pub.dev.
-publish_to: 'none'
+publish_to: "none"
 
-version: 1.0.2
+version: 1.0.3
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: ">=3.2.0 <4.0.0"
 
 dependencies:
   connectivity_plus: ^5.0.2

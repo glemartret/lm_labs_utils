@@ -11,7 +11,20 @@ class LLTappable extends HookWidget {
   final Duration duration;
   final Widget Function(Widget) _builder;
 
-  const LLTappable({
+  factory LLTappable({
+    required Widget child,
+    Key? key,
+    FutureOr<void> Function()? onTap,
+    Duration duration = const Duration(milliseconds: 500),
+  }) =>
+      LLTappable.constrained(
+        key: key,
+        duration: duration,
+        onTap: onTap,
+        child: child,
+      );
+
+  const LLTappable.constrained({
     required this.child,
     this.onTap,
     this.duration = const Duration(milliseconds: 500),
