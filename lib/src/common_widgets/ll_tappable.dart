@@ -58,7 +58,9 @@ class LLTappable extends HookWidget {
                   duration,
                   () async => onTap?.call(),
                 );
-                isProcessing.value = false;
+                if (context.mounted) {
+                  isProcessing.value = false;
+                }
               },
         child: _builder(child),
       ),
@@ -73,13 +75,17 @@ class LLTappable extends HookWidget {
       ..add(DiagnosticsProperty<Duration>('duration', duration));
   }
 
-  static Widget _constrainedBuilder(Widget child) => ConstrainedBox(
-        constraints: const BoxConstraints(
-          minWidth: 48,
-          minHeight: 48,
+  static Widget _constrainedBuilder(Widget child) => ColoredBox(
+        color: Colors.transparent,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: 48,
+            minHeight: 48,
+          ),
+          child: child,
         ),
-        child: child,
       );
 
-  static Widget _simpleBuilder(Widget child) => child;
+  static Widget _simpleBuilder(Widget child) =>
+      ColoredBox(color: Colors.transparent, child: child);
 }
