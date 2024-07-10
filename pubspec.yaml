@@ -1,10 +1,8 @@
 name: lm_labs_utils
-description: "A new Flutter project."
-
-# Prevent accidental publishing to pub.dev.
-publish_to: "none"
-
-version: 1.1.0
+description: "Reusable utilities for Flutter apps, packages, and plugins to encourage good coding practices"
+repository: https://github.com/glemartret/lm_labs_utils
+issue_tracker: https://github.com/glemartret/lm_labs_utils/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
+version: 1.1.1
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -28,14 +26,11 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.11
   custom_lint: ^0.6.4
-  extreme_flutter_lints:
-    git:
-      url: git@github.com:glemartret/extreme_flutter_lints.git
-      ref: latest
   flutter_test:
     sdk: flutter
   freezed: ^2.5.4
   json_serializable: ^6.8.0
+  lm_labs_flutter_lints: ^0.1.0
   riverpod_generator: ^2.4.2
   riverpod_lint: ^2.3.12
 

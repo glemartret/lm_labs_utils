@@ -61,7 +61,7 @@ class _ConnectivityRequestRetrier {
     streamSubscription = connectivity.onConnectivityChanged.listen(
       (connectivityResult) async {
         // We're connected either to WiFi or mobile data
-        if (connectivityResult != ConnectivityResult.none) {
+        if (!connectivityResult.contains(ConnectivityResult.none)) {
           // Ensure that only one retry happens per connectivity change by
           // cancelling the listener
           await streamSubscription.cancel();
