@@ -446,10 +446,10 @@ packages:
     dependency: "direct main"
     description:
       name: i18n_extension
-      sha256: "01b943ea532783c5945e658583d098d6f60db2a3177b9f382f010bd583853e59"
+      sha256: a9c61357a52d8e7e02db0317eb56114b59b626b279ed5f1e2293b3c4112bbdf4
       url: "https://pub.dev"
     source: hosted
-    version: "15.0.0"
+    version: "15.0.2"
   i18n_extension_core:
     dependency: transitive
     description:
