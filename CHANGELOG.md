@@ -2,6 +2,10 @@
 
 All notable changes to the `lm_labs_utils` package will be documented in this file.
 
+## [1.1.4] - 31/03/2025
+- Updated LLApp with Theme
+- Update dependencies
+
 ## [1.1.3] - 30/12/2024
 - Update dependencies
 
