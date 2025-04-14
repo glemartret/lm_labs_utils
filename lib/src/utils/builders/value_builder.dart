@@ -11,31 +11,24 @@ sealed class ValueBuilder<T> with _$ValueBuilder {
   ) = _ValueBuilderContext;
 
   const factory ValueBuilder.ref(
-    T? Function(Ref ref) builder,
+    T? Function(T Function<T>(ProviderListenable<T>) reader) builder,
   ) = _ValueBuilderRef;
 
   const factory ValueBuilder.value(
     T? value,
   ) = _ValueBuilderValue;
-
-  const factory ValueBuilder.widgetRef(
-    T? Function(WidgetRef ref) builder,
-  ) = _ValueBuilderWidgetRef;
 }
 
 extension ValueBuilderX<T> on ValueBuilder<T> {
   T? switchValue({
     BuildContext? context,
-    Ref? ref,
-    WidgetRef? widgetRef,
+    T Function<T>(ProviderListenable<T>)? reader,
   }) =>
       switch (this) {
         _ValueBuilderValue(:final value) => value,
         _ValueBuilderContext(:final builder) when context != null =>
           builder(context),
-        _ValueBuilderWidgetRef(:final builder) when widgetRef != null =>
-          builder(widgetRef),
-        _ValueBuilderRef(:final builder) when ref != null => builder(ref),
+        _ValueBuilderRef(:final builder) when reader != null => builder(reader),
         _ => null,
       };
 }

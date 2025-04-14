@@ -105,7 +105,7 @@ class __$ValueBuilderContextCopyWithImpl<T, $Res>
 class _ValueBuilderRef<T> implements ValueBuilder<T> {
   const _ValueBuilderRef(this.builder);
 
-  final T? Function(Ref<Object?>) builder;
+  final T? Function(T Function<T>(ProviderListenable<T>)) builder;
 
   /// Create a copy of ValueBuilder
   /// with the given fields replaced by the non-null parameter values.
@@ -138,7 +138,7 @@ abstract mixin class _$ValueBuilderRefCopyWith<T, $Res>
           _ValueBuilderRef<T> value, $Res Function(_ValueBuilderRef<T>) _then) =
       __$ValueBuilderRefCopyWithImpl;
   @useResult
-  $Res call({T? Function(Ref<Object?>) builder});
+  $Res call({T? Function(T Function<T>(ProviderListenable<T>)) builder});
 }
 
 /// @nodoc
@@ -159,7 +159,7 @@ class __$ValueBuilderRefCopyWithImpl<T, $Res>
       null == builder
           ? _self.builder
           : builder // ignore: cast_nullable_to_non_nullable
-              as T? Function(Ref<Object?>),
+              as T? Function(T Function<T>(ProviderListenable<T>)),
     ));
   }
 }
@@ -226,71 +226,6 @@ class __$ValueBuilderValueCopyWithImpl<T, $Res>
           ? _self.value
           : value // ignore: cast_nullable_to_non_nullable
               as T?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _ValueBuilderWidgetRef<T> implements ValueBuilder<T> {
-  const _ValueBuilderWidgetRef(this.builder);
-
-  final T? Function(WidgetRef) builder;
-
-  /// Create a copy of ValueBuilder
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$ValueBuilderWidgetRefCopyWith<T, _ValueBuilderWidgetRef<T>> get copyWith =>
-      __$ValueBuilderWidgetRefCopyWithImpl<T, _ValueBuilderWidgetRef<T>>(
-          this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _ValueBuilderWidgetRef<T> &&
-            (identical(other.builder, builder) || other.builder == builder));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, builder);
-
-  @override
-  String toString() {
-    return 'ValueBuilder<$T>.widgetRef(builder: $builder)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$ValueBuilderWidgetRefCopyWith<T, $Res>
-    implements $ValueBuilderCopyWith<T, $Res> {
-  factory _$ValueBuilderWidgetRefCopyWith(_ValueBuilderWidgetRef<T> value,
-          $Res Function(_ValueBuilderWidgetRef<T>) _then) =
-      __$ValueBuilderWidgetRefCopyWithImpl;
-  @useResult
-  $Res call({T? Function(WidgetRef) builder});
-}
-
-/// @nodoc
-class __$ValueBuilderWidgetRefCopyWithImpl<T, $Res>
-    implements _$ValueBuilderWidgetRefCopyWith<T, $Res> {
-  __$ValueBuilderWidgetRefCopyWithImpl(this._self, this._then);
-
-  final _ValueBuilderWidgetRef<T> _self;
-  final $Res Function(_ValueBuilderWidgetRef<T>) _then;
-
-  /// Create a copy of ValueBuilder
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? builder = null,
-  }) {
-    return _then(_ValueBuilderWidgetRef<T>(
-      null == builder
-          ? _self.builder
-          : builder // ignore: cast_nullable_to_non_nullable
-              as T? Function(WidgetRef),
     ));
   }
 }
