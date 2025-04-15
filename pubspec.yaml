@@ -2,7 +2,7 @@ name: lm_labs_utils
 description: "Reusable utilities for Flutter apps, packages, and plugins to encourage good coding practices"
 repository: https://github.com/glemartret/lm_labs_utils
 issue_tracker: https://github.com/glemartret/lm_labs_utils/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
-version: 1.1.5
+version: 1.1.6
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
@@ -19,9 +19,9 @@ dependencies:
     sdk: flutter
   freezed_annotation: ^3.0.0
   hooks_riverpod: ^2.6.1
-  i18n_extension: ^15.0.4
+  i18n_extension: ^15.0.5
   json_annotation: ^4.9.0
-  permission_handler: ^11.4.0
+  permission_handler: ^12.0.0+1
   riverpod_annotation: ^2.6.1
 
 dev_dependencies:
@@ -29,7 +29,7 @@ dev_dependencies:
   custom_lint: ^0.7.5
   flutter_test:
     sdk: flutter
-  freezed: ^3.0.4
+  freezed: ^3.0.6
   json_serializable: ^6.9.4
   lm_labs_flutter_lints: ^0.3.0
   riverpod_generator: ^2.6.5
