@@ -158,6 +158,7 @@ class _LLAppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.buildTheme(Brightness.light),
         locale: I18n.locale,
         localizationsDelegates: I18n.localizationsDelegates,
@@ -193,6 +194,7 @@ class _LLAppLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.buildTheme(Brightness.light),
         locale: I18n.locale,
         localizationsDelegates: I18n.localizationsDelegates,
@@ -217,6 +219,7 @@ class _LLAppRouterWidget extends ConsumerWidget {
     final routerConfig = ref.watch(routerProvider);
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.buildTheme(Brightness.light),
       locale: I18n.locale,
       localizationsDelegates: I18n.localizationsDelegates,

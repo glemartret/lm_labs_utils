@@ -2,6 +2,10 @@
 
 All notable changes to the `lm_labs_utils` package will be documented in this file.
 
+## [1.1.7] - 15/04/2025
+- Update dependencies
+- Remove banner on MaterialApp
+
 ## [1.1.6] - 15/04/2025
 - Update dependencies
 

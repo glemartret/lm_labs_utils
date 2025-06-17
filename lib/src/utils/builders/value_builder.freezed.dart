@@ -40,7 +40,7 @@ class $ValueBuilderCopyWith<T, $Res> {
 class _ValueBuilderContext<T> implements ValueBuilder<T> {
   const _ValueBuilderContext(this.builder);
 
-  final T? Function(BuildContext) builder;
+  final T? Function(BuildContext context) builder;
 
   /// Create a copy of ValueBuilder
   /// with the given fields replaced by the non-null parameter values.
@@ -74,7 +74,7 @@ abstract mixin class _$ValueBuilderContextCopyWith<T, $Res>
           $Res Function(_ValueBuilderContext<T>) _then) =
       __$ValueBuilderContextCopyWithImpl;
   @useResult
-  $Res call({T? Function(BuildContext) builder});
+  $Res call({T? Function(BuildContext context) builder});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$ValueBuilderContextCopyWithImpl<T, $Res>
       null == builder
           ? _self.builder
           : builder // ignore: cast_nullable_to_non_nullable
-              as T? Function(BuildContext),
+              as T? Function(BuildContext context),
     ));
   }
 }
@@ -105,7 +105,7 @@ class __$ValueBuilderContextCopyWithImpl<T, $Res>
 class _ValueBuilderRef<T> implements ValueBuilder<T> {
   const _ValueBuilderRef(this.builder);
 
-  final T? Function(T Function<T>(ProviderListenable<T>)) builder;
+  final T? Function(T Function<T>(ProviderListenable<T>) reader) builder;
 
   /// Create a copy of ValueBuilder
   /// with the given fields replaced by the non-null parameter values.
@@ -138,7 +138,7 @@ abstract mixin class _$ValueBuilderRefCopyWith<T, $Res>
           _ValueBuilderRef<T> value, $Res Function(_ValueBuilderRef<T>) _then) =
       __$ValueBuilderRefCopyWithImpl;
   @useResult
-  $Res call({T? Function(T Function<T>(ProviderListenable<T>)) builder});
+  $Res call({T? Function(T Function<T>(ProviderListenable<T>) reader) builder});
 }
 
 /// @nodoc
@@ -159,7 +159,7 @@ class __$ValueBuilderRefCopyWithImpl<T, $Res>
       null == builder
           ? _self.builder
           : builder // ignore: cast_nullable_to_non_nullable
-              as T? Function(T Function<T>(ProviderListenable<T>)),
+              as T? Function(T Function<T>(ProviderListenable<T>) reader),
     ));
   }
 }
