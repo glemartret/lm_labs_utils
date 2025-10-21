@@ -7,22 +7,21 @@ import 'package:lm_labs_utils/src/utils/future_easy_throttle.dart';
 
 class LLTappable extends HookWidget {
   final Widget child;
-  final FutureOr<void> Function()? onTap;
+  final FutureOr<void> Function(BuildContext context)? onTap;
   final Duration duration;
   final Widget Function(Widget) _builder;
 
   factory LLTappable({
     required Widget child,
     Key? key,
-    FutureOr<void> Function()? onTap,
+    FutureOr<void> Function(BuildContext context)? onTap,
     Duration duration = const Duration(milliseconds: 500),
-  }) =>
-      LLTappable.constrained(
-        key: key,
-        duration: duration,
-        onTap: onTap,
-        child: child,
-      );
+  }) => LLTappable.constrained(
+    key: key,
+    duration: duration,
+    onTap: onTap,
+    child: child,
+  );
 
   const LLTappable.constrained({
     required this.child,
@@ -46,8 +45,8 @@ class LLTappable extends HookWidget {
       cursor: isProcessing.value
           ? SystemMouseCursors.wait
           : (onTap != null)
-              ? SystemMouseCursors.click
-              : MouseCursor.defer,
+          ? SystemMouseCursors.click
+          : MouseCursor.defer,
       child: GestureDetector(
         onTap: isProcessing.value
             ? null
@@ -56,7 +55,7 @@ class LLTappable extends HookWidget {
                 await FutureEasyThrottle.throttle(
                   key.toString(),
                   duration,
-                  () async => onTap?.call(),
+                  () async => onTap?.call(context),
                 );
                 if (context.mounted) {
                   isProcessing.value = false;
@@ -71,20 +70,25 @@ class LLTappable extends HookWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(ObjectFlagProperty<FutureOr<void> Function()?>.has('onTap', onTap))
+      ..add(
+        ObjectFlagProperty<FutureOr<void> Function(BuildContext context)?>.has(
+          'onTap',
+          onTap,
+        ),
+      )
       ..add(DiagnosticsProperty<Duration>('duration', duration));
   }
 
   static Widget _constrainedBuilder(Widget child) => ColoredBox(
-        color: Colors.transparent,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            minWidth: 48,
-            minHeight: 48,
-          ),
-          child: child,
-        ),
-      );
+    color: Colors.transparent,
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 48,
+        minHeight: 48,
+      ),
+      child: child,
+    ),
+  );
 
   static Widget _simpleBuilder(Widget child) =>
       ColoredBox(color: Colors.transparent, child: child);
