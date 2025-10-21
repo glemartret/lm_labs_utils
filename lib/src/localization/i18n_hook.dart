@@ -8,7 +8,9 @@ void useI18n() {
       Localizations.maybeLocaleOf(context) ?? const Locale('en');
 
   Future(() {
-    I18n.of(context).locale = deviceLocale;
-  });
+    if (context.mounted) {
+      I18n.of(context).locale = deviceLocale;
+    }
+  }).ignore();
   return;
 }

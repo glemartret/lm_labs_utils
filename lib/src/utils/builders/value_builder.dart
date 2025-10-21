@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/misc.dart';
 
 part 'value_builder.freezed.dart';
 
@@ -11,7 +11,8 @@ sealed class ValueBuilder<T> with _$ValueBuilder {
   ) = _ValueBuilderContext;
 
   const factory ValueBuilder.ref(
-    T? Function(T Function<T>(ProviderListenable<T>) reader) builder,
+    T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader)
+    builder,
   ) = _ValueBuilderRef;
 
   const factory ValueBuilder.value(
@@ -22,13 +23,13 @@ sealed class ValueBuilder<T> with _$ValueBuilder {
 extension ValueBuilderX<T> on ValueBuilder<T> {
   T? switchValue({
     BuildContext? context,
-    T Function<T>(ProviderListenable<T>)? reader,
-  }) =>
-      switch (this) {
-        _ValueBuilderValue(:final value) => value,
-        _ValueBuilderContext(:final builder) when context != null =>
-          builder(context),
-        _ValueBuilderRef(:final builder) when reader != null => builder(reader),
-        _ => null,
-      };
+    StateT Function<StateT>(ProviderListenable<StateT>)? reader,
+  }) => switch (this) {
+    _ValueBuilderValue(:final value) => value,
+    _ValueBuilderContext(:final builder) when context != null => builder(
+      context,
+    ),
+    _ValueBuilderRef(:final builder) when reader != null => builder(reader),
+    _ => null,
+  };
 }

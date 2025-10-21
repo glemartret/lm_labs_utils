@@ -1,126 +1,126 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hooks_riverpod/misc.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:lm_labs_utils/localization.dart';
 import 'package:lm_labs_utils/src/utils/neutral_color_extension.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class LLApp extends ConsumerWidget {
   final WidgetBuilder? _appBuilder;
-  final FutureProvider<void> initAppProvider;
-  final void Function(WidgetRef, FutureProvider<void>) onRetry;
-  final WidgetBuilder loadingBuilder;
+  final ProviderListenable<AsyncValue<void>> initAppProvider;
+  final VoidCallback onInitAppRetry;
+  final Widget Function(BuildContext context, ThemeData? theme) loadingBuilder;
   final Widget Function(
     BuildContext context,
     Object error,
     StackTrace? stackTrace,
     VoidCallback onRetry,
-  ) errorBuilder;
+    ThemeData? theme,
+  )
+  errorBuilder;
   final Iterable<Locale> supportedLocales;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
-  final AutoDisposeProvider<RouterConfig<Object>>? _routerProvider;
+  final ProviderBase<RouterConfig<Object>>? _routerProvider;
+  final ThemeData? theme;
 
   const LLApp({
     required WidgetBuilder appBuilder,
     required this.initAppProvider,
+    required this.onInitAppRetry,
     this.supportedLocales = const [],
     this.localizationsDelegates = const [],
+    this.theme,
     super.key,
-  })  : onRetry = defaultOnRetry,
-        loadingBuilder = defaultLoadingBuilder,
-        errorBuilder = defaultErrorBuilder,
-        _routerProvider = null,
-        _appBuilder = appBuilder;
+  }) : loadingBuilder = defaultLoadingBuilder,
+       errorBuilder = defaultErrorBuilder,
+       _routerProvider = null,
+       _appBuilder = appBuilder;
 
   const LLApp.custom({
     required WidgetBuilder appBuilder,
     required this.initAppProvider,
+    required this.onInitAppRetry,
     this.supportedLocales = const [],
     this.localizationsDelegates = const [],
-    this.onRetry = defaultOnRetry,
     this.loadingBuilder = defaultLoadingBuilder,
     this.errorBuilder = defaultErrorBuilder,
+    this.theme,
     super.key,
-  })  : _routerProvider = null,
-        _appBuilder = appBuilder;
+  }) : _routerProvider = null,
+       _appBuilder = appBuilder;
 
   const LLApp.router({
     required this.initAppProvider,
-    required AutoDisposeProvider<RouterConfig<Object>> routerProvider,
+    required ProviderBase<RouterConfig<Object>> routerProvider,
+    required this.onInitAppRetry,
     this.supportedLocales = const [],
     this.localizationsDelegates = const [],
+    this.theme,
     super.key,
-  })  : onRetry = defaultOnRetry,
-        loadingBuilder = defaultLoadingBuilder,
-        errorBuilder = defaultErrorBuilder,
-        _routerProvider = routerProvider,
-        _appBuilder = null;
+  }) : loadingBuilder = defaultLoadingBuilder,
+       errorBuilder = defaultErrorBuilder,
+       _routerProvider = routerProvider,
+       _appBuilder = null;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => I18n(
-        supportedLocales: supportedLocales,
-        localizationsDelegates: localizationsDelegates,
-        child: switch (ref.watch(initAppProvider)) {
-          AsyncError(error: final error, stackTrace: final stackTrace) =>
-            errorBuilder(
-              context,
-              error,
-              stackTrace,
-              () => onRetry(ref, initAppProvider),
-            ),
-          AsyncLoading() => loadingBuilder(context),
-          AsyncData(value: final _) ||
-          AsyncValue() when _routerProvider != null =>
-            _LLAppRouterWidget(routerProvider: _routerProvider),
-          AsyncData(value: final _) ||
-          AsyncValue() when _appBuilder != null =>
-            _appBuilder(context),
-          _ => errorBuilder(
-              context,
-              'Missing required parameters',
-              null,
-              () => onRetry(ref, initAppProvider),
-            ),
-        },
-      );
+    supportedLocales: supportedLocales,
+    localizationsDelegates: localizationsDelegates,
+    child: switch (ref.watch(initAppProvider)) {
+      AsyncError(error: final error, stackTrace: final stackTrace) =>
+        errorBuilder(context, error, stackTrace, onInitAppRetry, theme),
+      AsyncLoading() => loadingBuilder(context, theme),
+      AsyncData(value: final _) || AsyncValue() when _routerProvider != null =>
+        _LLAppRouterWidget(routerProvider: _routerProvider, theme: theme),
+      AsyncData(value: final _) ||
+      AsyncValue() when _appBuilder != null => _appBuilder(context),
+      _ => errorBuilder(
+        context,
+        'Missing required parameters',
+        null,
+        onInitAppRetry,
+        theme,
+      ),
+    },
+  );
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
       ..add(
-        ObjectFlagProperty<WidgetBuilder>.has(
-          'loadingBuilder',
-          loadingBuilder,
-        ),
+        ObjectFlagProperty<
+          Widget Function(BuildContext context, ThemeData? theme)
+        >.has('loadingBuilder', loadingBuilder),
       )
       ..add(
         ObjectFlagProperty<
-            Widget Function(
-              BuildContext context,
-              Object error,
-              StackTrace? stackTrace,
-              VoidCallback onRetry,
-            )>.has('errorBuilder', errorBuilder),
+          Widget Function(
+            BuildContext context,
+            Object error,
+            StackTrace? stackTrace,
+            VoidCallback onRetry,
+            ThemeData? theme,
+          )
+        >.has('errorBuilder', errorBuilder),
       )
       ..add(
-        ObjectFlagProperty<
-            void Function(
-              WidgetRef p1,
-              FutureProvider<void> p2,
-            )>.has('onRetry', onRetry),
-      )
-      ..add(
-        DiagnosticsProperty<FutureProvider<void>>(
-          'initAppProvider',
-          initAppProvider,
-        ),
+        ObjectFlagProperty<VoidCallback>.has('onInitAppRetry', onInitAppRetry),
       )
       ..add(IterableProperty<Locale>('supportedLocales', supportedLocales))
       ..add(
         IterableProperty<LocalizationsDelegate>(
           'localizationsDelegates',
           localizationsDelegates,
+        ),
+      )
+      ..add(DiagnosticsProperty<ThemeData?>('theme', theme))
+      ..add(
+        DiagnosticsProperty<ProviderListenable<AsyncValue<void>>>(
+          'initAppProvider',
+          initAppProvider,
         ),
       );
   }
@@ -130,89 +130,86 @@ class LLApp extends ConsumerWidget {
     Object error,
     StackTrace? stackTrace,
     VoidCallback onRetry,
-  ) =>
-      _LLAppErrorWidget(
-        message: error.toString(),
-        onRetry: onRetry,
-      );
+    ThemeData? theme,
+  ) => _LLAppErrorWidget(
+    message: error.toString(),
+    onRetry: onRetry,
+    theme: theme,
+  );
 
-  static Widget defaultLoadingBuilder(BuildContext context) =>
-      const _LLAppLoadingWidget();
-
-  static void defaultOnRetry(
-    WidgetRef ref,
-    FutureProvider<void> initAppProvider,
-  ) {
-    ref.invalidate(initAppProvider);
-  }
+  static Widget defaultLoadingBuilder(BuildContext context, ThemeData? theme) =>
+      _LLAppLoadingWidget(theme: theme);
 }
 
 class _LLAppErrorWidget extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
+  final ThemeData? theme;
 
   const _LLAppErrorWidget({
     required this.message,
     required this.onRetry,
+    this.theme,
   });
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.buildTheme(Brightness.light),
-        locale: I18n.locale,
-        localizationsDelegates: I18n.localizationsDelegates,
-        supportedLocales: I18n.supportedLocales,
-        home: Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(message, style: Theme.of(context).textTheme.headlineSmall),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: onRetry,
-                  child: Text('Retry'.i18n),
-                ),
-              ],
-            ),
-          ),
+    debugShowCheckedModeBanner: false,
+    theme: theme ?? AppTheme.buildTheme(Brightness.light),
+    locale: I18n.locale,
+    localizationsDelegates: I18n.localizationsDelegates,
+    supportedLocales: I18n.supportedLocales,
+    home: Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(message, style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: 16),
+            ElevatedButton(onPressed: onRetry, child: Text('Retry'.i18n)),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
       ..add(StringProperty('message', message))
-      ..add(ObjectFlagProperty<VoidCallback>.has('onRetry', onRetry));
+      ..add(ObjectFlagProperty<VoidCallback>.has('onRetry', onRetry))
+      ..add(DiagnosticsProperty<ThemeData?>('theme', theme));
   }
 }
 
 class _LLAppLoadingWidget extends StatelessWidget {
-  const _LLAppLoadingWidget();
+  final ThemeData? theme;
+
+  const _LLAppLoadingWidget({this.theme});
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.buildTheme(Brightness.light),
-        locale: I18n.locale,
-        localizationsDelegates: I18n.localizationsDelegates,
-        supportedLocales: I18n.supportedLocales,
-        home: Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-      );
+    debugShowCheckedModeBanner: false,
+    theme: theme ?? AppTheme.buildTheme(Brightness.light),
+    locale: I18n.locale,
+    localizationsDelegates: I18n.localizationsDelegates,
+    supportedLocales: I18n.supportedLocales,
+    home: Scaffold(body: Center(child: CircularProgressIndicator())),
+  );
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<ThemeData?>('theme', theme));
+  }
 }
 
 class _LLAppRouterWidget extends ConsumerWidget {
-  final AutoDisposeProvider<RouterConfig<Object>> routerProvider;
+  final ThemeData? theme;
+  final ProviderBase<RouterConfig<Object>> routerProvider;
 
-  const _LLAppRouterWidget({
-    required this.routerProvider,
-  });
+  const _LLAppRouterWidget({required this.routerProvider, this.theme});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -220,7 +217,7 @@ class _LLAppRouterWidget extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.buildTheme(Brightness.light),
+      theme: theme ?? AppTheme.buildTheme(Brightness.light),
       locale: I18n.locale,
       localizationsDelegates: I18n.localizationsDelegates,
       supportedLocales: I18n.supportedLocales,
@@ -231,11 +228,13 @@ class _LLAppRouterWidget extends ConsumerWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty<AutoDisposeProvider<RouterConfig<Object>>>(
-        'routerProvider',
-        routerProvider,
-      ),
-    );
+    properties
+      ..add(
+        DiagnosticsProperty<ProviderBase<RouterConfig<Object>>>(
+          'routerProvider',
+          routerProvider,
+        ),
+      )
+      ..add(DiagnosticsProperty<ThemeData?>('theme', theme));
   }
 }
