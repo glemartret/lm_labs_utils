@@ -10,11 +10,11 @@ part of 'snack_bar_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SnackBarNotifier)
-const snackBarProvider = SnackBarNotifierProvider._();
+final snackBarProvider = SnackBarNotifierProvider._();
 
 final class SnackBarNotifierProvider
     extends $NotifierProvider<SnackBarNotifier, SnackBar?> {
-  const SnackBarNotifierProvider._()
+  SnackBarNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$SnackBarNotifier extends $Notifier<SnackBar?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<SnackBar?, SnackBar?>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$SnackBarNotifier extends $Notifier<SnackBar?> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
