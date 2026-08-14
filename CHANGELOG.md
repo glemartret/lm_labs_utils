@@ -5,6 +5,9 @@ All notable changes to the `lm_labs_utils` package will be documented in this fi
 ## [3.0.0] - 13/08/2026
 - Update dependencies
 
+## [1.1.8] - 21/10/2025
+- Add context to LLTappable onTap param
+
 ## [1.1.7] - 15/04/2025
 - Update dependencies
 - Remove banner on MaterialApp
