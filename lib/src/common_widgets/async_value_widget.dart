@@ -1,7 +1,7 @@
 // Generic AsyncValueWidget to work with values of type T
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AsyncValueSliverWidget<T> extends StatelessWidget {
   // input async value
@@ -17,22 +17,20 @@ class AsyncValueSliverWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => switch (value) {
-        AsyncData(:final value) => builder(value),
-        AsyncError(:final error) => SliverToBoxAdapter(
-            child: Center(
-              child: Text(
-                error.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.red),
-              ),
-            ),
-          ),
-        _ => const SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
-          ),
-      };
+    AsyncData(:final value) => builder(value),
+    AsyncError(:final error) => SliverToBoxAdapter(
+      child: Center(
+        child: Text(
+          error.toString(),
+          style: Theme.of(context).textTheme.titleLarge
+              ?.copyWith(color: Colors.red),
+        ),
+      ),
+    ),
+    _ => const SliverToBoxAdapter(
+      child: Center(child: CircularProgressIndicator()),
+    ),
+  };
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -57,18 +55,16 @@ class AsyncValueWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => switch (value) {
-        AsyncData(:final value) => builder(value),
-        AsyncError(:final error) => Center(
-            child: Text(
-              error.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.red),
-            ),
-          ),
-        _ => const Center(child: CircularProgressIndicator()),
-      };
+    AsyncData(:final value) => builder(value),
+    AsyncError(:final error) => Center(
+      child: Text(
+        error.toString(),
+        style: Theme.of(context).textTheme.titleLarge
+            ?.copyWith(color: Colors.red),
+      ),
+    ),
+    _ => const Center(child: CircularProgressIndicator()),
+  };
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

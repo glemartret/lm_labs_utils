@@ -1,11 +1,10 @@
-include: package:lm_labs_flutter_lints/flutter.yaml
-
 analyzer:
-  plugins:
-    - custom_lint
   exclude:
-    - "**.freezed.dart"
-    - "**.g.dart"
-  errors:
-    # For json_serializable
-    invalid_annotation_target: ignore
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
+include: package:lm_labs_flutter_lints/flutter.yaml

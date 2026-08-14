@@ -2,6 +2,9 @@
 
 All notable changes to the `lm_labs_utils` package will be documented in this file.
 
+## [3.0.0] - 13/08/2026
+- Update dependencies
+
 ## [1.1.8] - 21/10/2025
 - Add context to LLTappable onTap param
 
