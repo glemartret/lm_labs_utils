@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'value_builder.dart';
@@ -9,6 +9,7 @@ part of 'value_builder.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -122,7 +123,7 @@ return value(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T? Function(BuildContext context) builder)?  context,TResult Function( T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader) builder)?  ref,TResult Function( T? value)?  value,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T? Function(BuildContext context) builder)?  context,TResult Function( T? Function(ProviderReader reader) builder)?  ref,TResult Function( T? value)?  value,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ValueBuilderContext() when context != null:
 return context(_that.builder);case _ValueBuilderRef() when ref != null:
@@ -145,7 +146,7 @@ return value(_that.value);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T? Function(BuildContext context) builder)  context,required TResult Function( T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader) builder)  ref,required TResult Function( T? value)  value,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T? Function(BuildContext context) builder)  context,required TResult Function( T? Function(ProviderReader reader) builder)  ref,required TResult Function( T? value)  value,}) {final _that = this;
 switch (_that) {
 case _ValueBuilderContext():
 return context(_that.builder);case _ValueBuilderRef():
@@ -164,7 +165,7 @@ return value(_that.value);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T? Function(BuildContext context) builder)?  context,TResult? Function( T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader) builder)?  ref,TResult? Function( T? value)?  value,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T? Function(BuildContext context) builder)?  context,TResult? Function( T? Function(ProviderReader reader) builder)?  ref,TResult? Function( T? value)?  value,}) {final _that = this;
 switch (_that) {
 case _ValueBuilderContext() when context != null:
 return context(_that.builder);case _ValueBuilderRef() when ref != null:
@@ -250,7 +251,7 @@ class _ValueBuilderRef<T> implements ValueBuilder<T> {
   const _ValueBuilderRef(this.builder);
   
 
- final  T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader) builder;
+ final  T? Function(ProviderReader reader) builder;
 
 /// Create a copy of ValueBuilder
 /// with the given fields replaced by the non-null parameter values.
@@ -282,7 +283,7 @@ abstract mixin class _$ValueBuilderRefCopyWith<T,$Res> implements $ValueBuilderC
   factory _$ValueBuilderRefCopyWith(_ValueBuilderRef<T> value, $Res Function(_ValueBuilderRef<T>) _then) = __$ValueBuilderRefCopyWithImpl;
 @useResult
 $Res call({
- T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader) builder
+ T? Function(ProviderReader reader) builder
 });
 
 
@@ -302,7 +303,7 @@ class __$ValueBuilderRefCopyWithImpl<T,$Res>
 @pragma('vm:prefer-inline') $Res call({Object? builder = null,}) {
   return _then(_ValueBuilderRef<T>(
 null == builder ? _self.builder : builder // ignore: cast_nullable_to_non_nullable
-as T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader),
+as T? Function(ProviderReader reader),
   ));
 }
 

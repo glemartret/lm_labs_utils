@@ -4,6 +4,11 @@ import 'package:hooks_riverpod/misc.dart';
 
 part 'value_builder.freezed.dart';
 
+/// Signature of `ref.read` / `ref.watch`.
+typedef ProviderReader = StateT Function<StateT>(
+  ProviderListenable<StateT> provider,
+);
+
 @freezed
 sealed class ValueBuilder<T> with _$ValueBuilder {
   const factory ValueBuilder.context(
@@ -11,8 +16,7 @@ sealed class ValueBuilder<T> with _$ValueBuilder {
   ) = _ValueBuilderContext;
 
   const factory ValueBuilder.ref(
-    T? Function(StateT Function<StateT>(ProviderListenable<StateT>) reader)
-    builder,
+    T? Function(ProviderReader reader) builder,
   ) = _ValueBuilderRef;
 
   const factory ValueBuilder.value(
@@ -23,7 +27,7 @@ sealed class ValueBuilder<T> with _$ValueBuilder {
 extension ValueBuilderX<T> on ValueBuilder<T> {
   T? switchValue({
     BuildContext? context,
-    StateT Function<StateT>(ProviderListenable<StateT>)? reader,
+    ProviderReader? reader,
   }) => switch (this) {
     _ValueBuilderValue(:final value) => value,
     _ValueBuilderContext(:final builder) when context != null => builder(

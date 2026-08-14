@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hooks_riverpod/misc.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:lm_labs_utils/localization.dart';
 import 'package:lm_labs_utils/src/utils/neutral_color_extension.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class LLApp extends ConsumerWidget {
@@ -26,7 +26,7 @@ class LLApp extends ConsumerWidget {
   final ThemeData? theme;
 
   const LLApp({
-    required WidgetBuilder appBuilder,
+    required WidgetBuilder this._appBuilder,
     required this.initAppProvider,
     required this.onInitAppRetry,
     this.supportedLocales = const [],
@@ -35,11 +35,10 @@ class LLApp extends ConsumerWidget {
     super.key,
   }) : loadingBuilder = defaultLoadingBuilder,
        errorBuilder = defaultErrorBuilder,
-       _routerProvider = null,
-       _appBuilder = appBuilder;
+       _routerProvider = null;
 
   const LLApp.custom({
-    required WidgetBuilder appBuilder,
+    required WidgetBuilder this._appBuilder,
     required this.initAppProvider,
     required this.onInitAppRetry,
     this.supportedLocales = const [],
@@ -48,12 +47,11 @@ class LLApp extends ConsumerWidget {
     this.errorBuilder = defaultErrorBuilder,
     this.theme,
     super.key,
-  }) : _routerProvider = null,
-       _appBuilder = appBuilder;
+  }) : _routerProvider = null;
 
   const LLApp.router({
     required this.initAppProvider,
-    required ProviderBase<RouterConfig<Object>> routerProvider,
+    required ProviderBase<RouterConfig<Object>> this._routerProvider,
     required this.onInitAppRetry,
     this.supportedLocales = const [],
     this.localizationsDelegates = const [],
@@ -61,7 +59,6 @@ class LLApp extends ConsumerWidget {
     super.key,
   }) : loadingBuilder = defaultLoadingBuilder,
        errorBuilder = defaultErrorBuilder,
-       _routerProvider = routerProvider,
        _appBuilder = null;
 
   @override

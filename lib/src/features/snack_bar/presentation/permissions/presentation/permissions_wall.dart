@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @Deprecated('This is WIP')
@@ -33,8 +33,8 @@ class PermissionsWall extends HookWidget {
     return switch (status.value) {
       PermissionStatus.granted => child,
       PermissionStatus.permanentlyDenied => const Center(
-          child: Text('Permission permanently denied'),
-        ),
+        child: Text('Permission permanently denied'),
+      ),
       null => const Center(child: CircularProgressIndicator()),
       _ => const Center(child: Text('Not implemented yet')),
     };

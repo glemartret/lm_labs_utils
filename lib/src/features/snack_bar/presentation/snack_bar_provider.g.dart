@@ -47,7 +47,7 @@ abstract class _$SnackBarNotifier extends $Notifier<SnackBar?> {
   SnackBar? build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<SnackBar?, SnackBar?>;
     final element =
         ref.element
@@ -57,6 +57,6 @@ abstract class _$SnackBarNotifier extends $Notifier<SnackBar?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
